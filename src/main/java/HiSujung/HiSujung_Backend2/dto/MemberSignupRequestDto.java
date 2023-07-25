@@ -7,10 +7,12 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class MemberSignupRequestDto {
 
     @NotBlank(message = "학교 g메일 아이디를 입력해주세요.")

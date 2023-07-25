@@ -8,3 +8,5 @@ public interface MemberService {
     public Long signUp(MemberSignupRequestDto requestDro) throws Exception;
     public String login(Map<String, String> members);
 }
+
+    public Long join(MemberSignupRequestDto requestDto) throws Exception;
