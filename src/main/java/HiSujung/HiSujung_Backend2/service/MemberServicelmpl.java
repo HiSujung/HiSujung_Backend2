@@ -62,36 +62,6 @@ public class MemberServicelmpl implements MemberService{
         return jwtTokenProvider.createToken(member.getUsername(), roles);
     }
 
-}
-
-package HiSujung.HiSujung_Backend2.service;
-
-import HiSujung.HiSujung_Backend2.dto.MemberSignupRequestDto;
-import HiSujung.HiSujung_Backend2.entity.Member;
-import HiSujung.HiSujung_Backend2.exception.BusinessLogicException;
-import HiSujung.HiSujung_Backend2.exception.ExceptionCode;
-import HiSujung.HiSujung_Backend2.jpa.MemberRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.time.Duration;
-import java.util.Optional;
-import java.util.Random;
-
-@RequiredArgsConstructor
-@Transactional(readOnly = true)
-@Service
-@Slf4j
-public class MemberServicelmpl implements MemberService{
-
-    private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
     private final RedisService redisService;
 
@@ -159,5 +129,6 @@ public class MemberServicelmpl implements MemberService{
 //
 //        return EmailVerificationResult.of(authResult);
 //    }
+
 
 }
