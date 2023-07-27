@@ -73,6 +73,7 @@ public class SecurityConfig {
                 .requestMatchers("/hello").permitAll()
                 .requestMatchers("/member/login").permitAll()
                 .requestMatchers("/member/join").permitAll()
+                .requestMatchers("/member/join/verify/*").permitAll()
                 .requestMatchers("/member/join/mailConfirm").permitAll()
                 .requestMatchers("/member").hasRole("USER")
                 .anyRequest().authenticated()
