@@ -36,6 +36,18 @@ public class MemberApiController {
         log.info("인증코드 : " + code);
         return code;
     }
+
+    @GetMapping("/join/verify/{key}")
+    public String getVerify(@PathVariable String key) {
+        String message;
+        try {
+            emailService.verifyEmail(key);
+            message = "인증에 성공하였습니다.";
+        } catch (Exception e) {
+            message = "인증에 실패하였습니다.";
+        }
+        return message;
+    }
 //
 //    @PostMapping("/emails/verification-requests")
 //    public ResponseEntity sendMessage(@RequestParam("email") @Valid @CustomEmail String email) {

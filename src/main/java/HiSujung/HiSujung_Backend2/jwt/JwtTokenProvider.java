@@ -27,8 +27,9 @@ public class JwtTokenProvider {
 
     private final long TOKEN_VALID_MILISECOND = 1000L * 60 * 60 * 10; // 10시간
 
-    @Value("security.jwt.secret")
+    @Value("${jwt.secret}")
     private String secretKey;
+
 
     private final UserDetailsService userDetailsService;
     @Lazy

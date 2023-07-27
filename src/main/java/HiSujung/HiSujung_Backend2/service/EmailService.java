@@ -1,11 +1,13 @@
 package HiSujung.HiSujung_Backend2.service;
 
+import HiSujung.HiSujung_Backend2.Util.RedisUtil;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ import java.util.Random;
 public class EmailService {
 
     private final JavaMailSender javaMailSender;
+    private final RedisUtil redisUtil;
 
     //인증번호 생성
     private final String ePw = createKey();
@@ -39,7 +42,7 @@ public class EmailService {
         //메일 내용 메일의 subtype을 html로 지정하여 html 문법 사용 가능
         String msg="";
         msg += "<h1 style=\"font-size: 30px; padding-right: 30px; padding-left: 30px;\">이메일 주소 확인</h1>";
-        msg += "<p style=\"font-size: 17px; padding-right: 30px; padding-left: 30px;\">아래 확인 코드를 회원가입 화면에서 입력해주세요.</p>";
+        msg += "<p style=\"font-size: 17px; padding-right: 30px; padding-left: 30px;\">아래 확인 코드를 회원가입 화면에서 입력해주세요. 유효시간은 1분입니다.</p>";
         msg += "<div style=\"padding-right: 30px; padding-left: 30px; margin: 32px 0 40px;\"><table style=\"border-collapse: collapse; border: 0; background-color: #F4F4F4; height: 70px; table-layout: fixed; word-wrap: break-word; border-radius: 6px;\"><tbody><tr><td style=\"text-align: center; vertical-align: middle; font-size: 30px;\">";
         msg += ePw;
         msg += "</td></tr></tbody></table></div>";
@@ -70,11 +73,21 @@ public class EmailService {
     public String sendSimpleMessage(String to)throws Exception {
         MimeMessage message = createMessage(to);
         try{
+            redisUtil.setDataExpire(ePw, to, 60 * 1L); // 유효시간 1분
             javaMailSender.send(message); // 메일 발송
         }catch(MailException es){
             es.printStackTrace();
             throw new IllegalArgumentException();
         }
         return ePw; // 메일로 보냈던 인증 코드를 서버로 리턴
+    }
+
+    public String verifyEmail(String key) throws ChangeSetPersister.NotFoundException {
+        String memberEmail = redisUtil.getData(key);
+        if (memberEmail == null) {
+            throw new ChangeSetPersister.NotFoundException();
+        }
+        redisUtil.deleteData(key);
+        return ePw;
     }
 }
