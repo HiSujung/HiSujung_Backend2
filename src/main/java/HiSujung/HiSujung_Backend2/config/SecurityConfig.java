@@ -70,6 +70,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
+                .requestMatchers("/hello").permitAll()
                 .requestMatchers("/member/login").permitAll()
                 .requestMatchers("/member/join").permitAll()
                 .requestMatchers("/member/join/mailConfirm").permitAll()
