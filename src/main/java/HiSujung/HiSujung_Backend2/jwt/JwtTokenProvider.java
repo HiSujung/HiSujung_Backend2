@@ -24,13 +24,11 @@ import java.util.List;
 @Slf4j
 @Component
 public class JwtTokenProvider {
-    private String secretKey =
-            "c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK";
 
     private final long TOKEN_VALID_MILISECOND = 1000L * 60 * 60 * 10; // 10시간
-    
-//    @Value("jwt.secret")
-//    private String secretKey;
+
+    @Value("${jwt.secret}")
+    private String secretKey;
 
 
     private final UserDetailsService userDetailsService;
