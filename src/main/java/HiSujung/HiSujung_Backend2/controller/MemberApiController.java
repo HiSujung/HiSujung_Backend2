@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -49,4 +51,9 @@ public class MemberApiController {
 //
 //        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
 //    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody Map<String, String> member) {
+        return memberService.login(member);
+    }
 }

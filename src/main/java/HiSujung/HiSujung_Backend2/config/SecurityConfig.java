@@ -72,6 +72,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/member/login").permitAll()
                 .requestMatchers("/member/join").permitAll()
+                .requestMatchers("/member/join/mailConfirm").permitAll()
                 .requestMatchers("/member").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
