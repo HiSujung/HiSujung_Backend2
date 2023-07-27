@@ -5,6 +5,9 @@ jwt:
   secret: c2lsdmVybmluZS10ZWsdfadgdsflgsfgdsfgdsfgdfsgdsfgdfgNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
   token-validity-in-seconds: 86400
 
+server:
+  port: 8080
+
 spring:
   datasource:
     url: jdbc:h2:tcp://localhost/~/test
